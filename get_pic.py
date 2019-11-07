@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
@@ -5,11 +6,12 @@ class MyClass(GeneratedClass):
     def onLoad(self):
         self.video = ALProxy("ALVideoDevices")
         self.photo = ALProxy("ALPhotoCapture")
+        # self.video.subscribeCamera()
         self.photo.setCameraID(0)
         self.photo.setColorSpace(0)
+        if(not self.photo.isHalfPressEnabled):
+            self.photo.setHalfPressEnabled(True)
 
-        self.photo.setPictureFormat("jpg")
-        self.photo.setHalfPressEnabled(True)
         #put initialization code here
         pass
 
@@ -18,7 +20,8 @@ class MyClass(GeneratedClass):
         pass
 
     def onInput_onStart(self):
-        #self.onStopped() #activate the output of the box
+        self.photo.takePicture(r"./Pic", r"Pic", True)
+        self.onStopped() #activate the output of the box
         pass
 
     def onInput_onStop(self):
