@@ -10,17 +10,12 @@ class MyClass(GeneratedClass):
         pass
 
     def onUnload(self):
-        self.motion.moveToward(1.0, 0.0, 0.0, self.motion.getMoveConfig("Max"))
         #put clean-up code here
         pass
 
     def onInput_onStart(self):
-
-
-
-
-
-        self.onStopped() #activate the output of the box
+        self.motion.moveToward(1.0, 0.0, 0.0, self.motion.getMoveConfig("Max"))
+        # self.onStopped() #activate the output of the box
         pass
 
     def onInput_onStop(self):
