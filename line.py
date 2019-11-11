@@ -18,6 +18,7 @@ class MyClass(GeneratedClass):
         pass
 
     def onInput_onStart(self):
+        m = 0
         image = cv2.imread(self.path)
         len_x = image.shape[1]
         len_y = image.shape[0]
@@ -48,6 +49,7 @@ class MyClass(GeneratedClass):
         P2 = False
         for i in range(0, len(lines)):
             for x1, y1, x2, y2 in lines[i]:
+                global m
                 if not P1:
                     if x1 < len_x * 0.4 and len_y * 0.4 < y1 < len_y * 0.7:
                         x3, y3 = x1, y1
@@ -57,7 +59,16 @@ class MyClass(GeneratedClass):
                         x4, y4 = x1, y1
                         P2 = True
                 if P1 and P2:
-                    cv2.line(masked_dst, (x3, y3), (x4, y4), (0, 255, 0), 5)
+                    m = (x1+x2)/2
+        if m < len_x*0.45:
+            self.Right()
+        elif m >len_x*0.55:
+            self.Left()
+        elif m==0:
+            self.onStoped()
+        else:
+            self.Straight()
+
         #self.onStopped() #activate the output of the box
         pass
 
