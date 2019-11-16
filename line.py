@@ -9,7 +9,7 @@ class MyClass(GeneratedClass):
         GeneratedClass.__init__(self)
 
     def onLoad(self):
-        self.path = r"./Pic"
+        self.path = r"./Pic/Pic1.jpg"
         #put initialization code here
         pass
 
@@ -28,10 +28,9 @@ class MyClass(GeneratedClass):
                       (int(len_x / 2 + 80), int(len_y)), 255, -1)
         mask = cv2.bitwise_not(mask)
         # 加掩膜后图像
-        masked_ori = cv2.bitwise_and(image, image, mask=mask)
-        masked_dst = image.copy()
         # 灰度处理
-        im_1 = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        #im_1 = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        (im_1, u, v) = cv2.split(image)
         # 直方图均匀化
         im_2 = cv2.equalizeHist(im_1)
         # 自适应阈值处理
@@ -41,7 +40,7 @@ class MyClass(GeneratedClass):
         # 形态学处理
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
         masked_draw = cv2.morphologyEx(im_ex, cv2.MORPH_CLOSE, kernel, iterations=0)
-        masked_draw2 = cv2.morphologyEx(im_ex, cv2.MORPH_OPEN, kernel, iterations=0)
+        # masked_draw2 = cv2.morphologyEx(im_ex, cv2.MORPH_OPEN, kernel, iterations=0)
         minLineLength = 100
         maxLineGap = 10
         lines = cv2.HoughLinesP(masked_draw, 1, np.pi / 180, 50, minLineLength, maxLineGap)
@@ -59,12 +58,12 @@ class MyClass(GeneratedClass):
                         x4, y4 = x1, y1
                         P2 = True
                 if P1 and P2:
-                    m = (x1+x2)/2
+                    m = (x3+x4)/2
         if m < len_x*0.45:
-            self.Right()
-        elif m >len_x*0.55:
             self.Left()
-        elif m==0:
+        elif m > len_x*0.55:
+            self.Right()
+        elif m == 0:
             self.onStoped()
         else:
             self.Straight()
