@@ -14,7 +14,7 @@ class MyClass(GeneratedClass):
         pass
 
     def onInput_onStart(self):
-        self.motion.moveToward(1.0, 0.0, 0.0, self.motion.getMoveConfig("Max"))
+        self.motion.moveToward(0.4, 0.0, 0.0, self.motion.getMoveConfig("Default"))
         # self.onStopped() #activate the output of the box
         pass
 
