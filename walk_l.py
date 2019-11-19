@@ -11,6 +11,7 @@ class MyClass(GeneratedClass):
 
     def onUnload(self):
         #put clean-up code here
+        self.motion.stopMove()
         pass
 
     def onInput_onStart(self):
