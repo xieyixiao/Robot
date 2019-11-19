@@ -21,13 +21,13 @@ class MyClass(GeneratedClass):
         x = 0
         y = 0
         image = cv2.imread(self.path)
-        len_x = image.shape[1]
-        len_y = image.shape[0]
+        # len_x = image.shape[1]
+        # len_y = image.shape[0]
         # 矩形掩膜
-        mask = np.zeros((image.shape[0:2]), np.uint8)
-        cv2.rectangle(mask, (int(len_x / 2 - 80), int(len_y / 2 - 50)),
-                      (int(len_x / 2 + 80), int(len_y)), 255, -1)
-        mask = cv2.bitwise_not(mask)
+        # mask = np.zeros((image.shape[0:2]), np.uint8)
+        #cv2.rectangle(mask, (int(len_x / 2 - 80), int(len_y / 2 - 50)),
+        #             (int(len_x / 2 + 80), int(len_y)), 255, -1)
+        # mask = cv2.bitwise_not(mask)
         # 加掩膜后图像
         # 灰度处理
         #im_1 = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -37,7 +37,7 @@ class MyClass(GeneratedClass):
         # 自适应阈值处理
         # im_3 = cv2.adaptiveThreshold(im_2, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 5, 3)
         ret, im_ex = cv2.threshold(im_2, 225, 255, cv2.THRESH_BINARY)
-        im_ex = cv2.bitwise_and(im_ex, mask)
+        # im_ex = cv2.bitwise_and(im_ex, mask)
         # 形态学处理
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
         masked_draw = cv2.morphologyEx(im_ex, cv2.MORPH_CLOSE, kernel, iterations=0)
@@ -53,9 +53,9 @@ class MyClass(GeneratedClass):
                 y = y + y1 + y2
         x = x / len(lines) / 2
         y = y / len(lines) / 2
-        if x > 200:
+        if x > 150:
             self.Left()
-        elif x > 100:
+        elif x < 140:
             self.Right()
         # elif x == 0:
         #   self.onStoped()

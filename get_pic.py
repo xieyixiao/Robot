@@ -9,6 +9,7 @@ class MyClass(GeneratedClass):
         # self.video.subscribeCamera()
         self.photo.setCameraID(0)
         self.photo.setColorSpace(0)
+        self.photo.setResolution(1)
         if(not self.photo.isHalfPressEnabled):
             self.photo.setHalfPressEnabled(True)
 
