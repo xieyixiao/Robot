@@ -18,7 +18,8 @@ class MyClass(GeneratedClass):
         pass
 
     def onInput_onStart(self):
-        m = 0
+        x = 0
+        y = 0
         image = cv2.imread(self.path)
         len_x = image.shape[1]
         len_y = image.shape[0]
@@ -44,27 +45,20 @@ class MyClass(GeneratedClass):
         minLineLength = 100
         maxLineGap = 10
         lines = cv2.HoughLinesP(masked_draw, 1, np.pi / 180, 50, minLineLength, maxLineGap)
-        P1 = False
-        P2 = False
+        # P1 = False
+        # P2 = False
         for i in range(0, len(lines)):
             for x1, y1, x2, y2 in lines[i]:
-                global m
-                if not P1:
-                    if x1 < len_x * 0.4 and len_y * 0.4 < y1 < len_y * 0.7:
-                        x3, y3 = x1, y1
-                        P1 = True
-                if not P2:
-                    if x1 > len_x * 0.8 and len_y * 0.3 < y1 < len_y * 0.6:
-                        x4, y4 = x1, y1
-                        P2 = True
-                if P1 and P2:
-                    m = (x3+x4)/2
-        if m < len_x*0.45:
+                x = x + x1 + x2
+                y = y + y1 + y2
+        x = x / len(lines) / 2
+        y = y / len(lines) / 2
+        if x > 200:
             self.Left()
-        elif m > len_x*0.55:
+        elif x > 100:
             self.Right()
-        elif m == 0:
-            self.onStoped()
+        # elif x == 0:
+        #   self.onStoped()
         else:
             self.Straight()
 
