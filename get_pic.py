@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
+import cv2
+from naoqi import ALProxy
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
 
     def onLoad(self):
-        self.video = ALProxy("ALVideoDevices")
-        self.photo = ALProxy("ALPhotoCapture")
-        # self.video.subscribeCamera()
-        self.photo.setCameraID(0)
-        self.photo.setColorSpace(0)
-        self.photo.setResolution(1)
-        if(not self.photo.isHalfPressEnabled):
-            self.photo.setHalfPressEnabled(True)
+         self.photo = ALProxy("ALPhotoCapture")
+         self.video.subscribeCamera()
+         self.photo.setCameraID(0)
+         self.photo.setColorSpace(0)
+         self.photo.setResolution(1)
+         if(not self.photo.isHalfPressEnabled):
+          self.photo.setHalfPressEnabled(True)
 
         #put initialization code here
         pass
